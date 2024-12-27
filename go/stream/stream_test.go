@@ -2,6 +2,7 @@ package stream
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"testing"
 	"time"
@@ -11,6 +12,28 @@ func TestStream(t *testing.T) {
 	serve()
 }
 
+func serveGin() {
+	e := gin.Default()
+	e.GET("/", func(c *gin.Context) {
+		str := "Hello, World!"
+		c.Writer.Header().Set("Content-Type", "text/event-stream")
+		c.Writer.Header().Set("Cache-Control", "no-cache")
+		c.Writer.Header().Set("Connection", "keep-alive")
+
+		for _, s := range str {
+			for i := 0; i < 10; i++ {
+				c.SSEvent("message", s)
+				c.Writer.Flush()
+				time.Sleep(1 * time.Second)
+			}
+		}
+	})
+	err := e.Run(":8080")
+	if err != nil {
+		return
+	}
+}
+
 func serve() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/stream", func(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +41,7 @@ func serve() {
 
 		header := w.Header()
 		header.Set("Content-Type", "text/event-stream;charset=UTF-8")
-		header.Set("Pragma", "no-cache")
+		header.Set("Cache-Control", "no-cache")
 		header.Set("Connection", "keep-alive")
 
 		flusher := w.(http.Flusher)
