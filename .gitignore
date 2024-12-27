@@ -38,3 +38,12 @@ out/
 
 ### Kotlin ###
 .kotlin
+/gradle/
+/js/package.json
+/js/package-lock.json
+/src/main/resources/
+/src/test/
+/build.gradle.kts
+/gradlew
+/gradlew.bat
+/settings.gradle.kts
