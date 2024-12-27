@@ -136,6 +136,8 @@ field: value\n
 
 <summary>SpringBoot</summary>
 
+[代码文件](../src/main/kotlin/zone/annie/blogcontent/StreamController.kt)
+
 ```kotlin
 val ssePool = ConcurrentHashMap<String, SseEmitter>()
 
@@ -174,6 +176,8 @@ fun sendSse(@ModelAttribute clientId: String, @ModelAttribute message: String) {
 <details>
 
 <summary>Go</summary>
+
+[代码文件](../go/stream/stream_test.go)
 
 Go SDK 中的 http 包中没有默认的 SSE 实现, 所以按格式返回就可以
 
