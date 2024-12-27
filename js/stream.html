@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stream</title>
+</head>
+<body>
+<p id="content"></p>
+</body>
+<script>
+    const contentElement = document.getElementById("content");
+    // 创建 XMLHttpRequest 对象
+    const xhr = new XMLHttpRequest();
+    // 设置请求的 URL
+    xhr.open(
+        "GET",
+        `http://localhost:8080/stream`
+    );
+    // 设置响应类型为 text/event-stream
+    xhr.setRequestHeader("Content-Type", "text/event-stream");
+    // 监听 readyStateChange 事件
+    xhr.onreadystatechange = () => {
+        // 如果 readyState 是 3，表示正在接收数据
+        if (xhr.readyState === 3) {
+            // 将数据添加到文本框中
+            console.log('xhr.responseText :>> ', xhr);
+            contentElement.textContent = xhr.responseText
+        }
+    };
+    // 发送请求
+    xhr.send();
+</script>
+</html>
