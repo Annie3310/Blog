@@ -315,7 +315,7 @@ public class Rule {
 
 ```java
 public ObjectNode resolveDataValue(DeviceParsingRule rule, String value) {
-    ObjectNode objectNode = objectMapper().createObjectNode();
+    ObjectNode objectNode = objectMapper.createObjectNode();
     Rule ruleObj = jsonMapper.fromJson(rule.getRule(), Rule.class);
     ruleObj.sortByte();
     String[] hexByteArray = splitHexString(value, ruleObj.getDirection());
